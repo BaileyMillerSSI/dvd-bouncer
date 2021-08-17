@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { parse } from "query-string";
 import Sketch from "react-p5";
 import p5Types from "p5";
 
@@ -15,7 +14,7 @@ let r: number;
 let g: number;
 let b: number;
 
-let startingSpeed: number = 5;
+let startingSpeed: number;
 
 const pickColor = (p5: p5Types) => {
   r = p5.random(100, 256);
@@ -27,6 +26,11 @@ const setup = (p5: p5Types, canvasParentRef: Element) => {
   p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
   x = p5.random(p5.width);
   y = p5.random(p5.height);
+
+ if (!startingSpeed) {
+   startingSpeed = 5;
+ }
+
   xspeed = startingSpeed;
   yspeed = startingSpeed;
 
@@ -83,12 +87,22 @@ const App = () => {
 
   useEffect(() => {
     document.title = "DVD Bouncer";
-    const { speed } = parse(window.location.search, { parseNumbers: true });
 
-    startingSpeed = (speed as number) ?? 5;
+    document.addEventListener("speedControl", handleSpeedChangeEvent);
+
+    return () => {
+      document.removeEventListener("speedControl", handleSpeedChangeEvent);
+    };
   });
 
   return <Sketch windowResized={onResize} preload={preload} setup={setup} draw={draw} />;
 };
+
+const handleSpeedChangeEvent = (event: any) => {
+  startingSpeed = parseInt(event?.detail ?? 5);
+  xspeed = startingSpeed;
+  yspeed = startingSpeed;
+};
+
 
 export default App;
