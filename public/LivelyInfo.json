@@ -1,0 +1,14 @@
+{
+    "AppVersion": "1.7.0.2",
+    "Title": "DVD Bouncer",
+    "Thumbnail": "thumbnail.png",
+    "Preview": "preview.gif",
+    "Desc": "A simple background of the classic DVD logo bouncing around",
+    "Author": "Bailey Miller",
+    "License": null,
+    "Contact": "https://github.com/BaileyMillerSSI/dvd-bouncer",
+    "Type": 1,
+    "FileName": "index.html",
+    "Arguments": null,
+    "IsAbsolutePath": false
+  }
